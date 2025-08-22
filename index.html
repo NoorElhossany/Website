@@ -103,6 +103,17 @@
             color: #14b8a6; /* teal-500 text */
             box-shadow: 0 4px 8px rgba(20, 184, 166, 0.4);
         }
+        
+        @keyframes subtle-glow {
+            from {
+                box-shadow: 0 0 5px rgba(20, 184, 166, 0.2), 0 0 2px rgba(20, 184, 166, 0.1);
+                border-color: rgba(255, 255, 255, 0.03);
+            }
+            to {
+                box-shadow: 0 0 15px rgba(20, 184, 166, 0.4), 0 0 5px rgba(20, 184, 166, 0.2);
+                border-color: rgba(20, 184, 166, 0.2);
+            }
+        }
 
         .project-card {
             background-color: rgba(255, 255, 255, 0.01); /* Extremely transparent */
@@ -110,14 +121,15 @@
             backdrop-filter: blur(20px); /* Stronger blur for frosted glass effect */
             -webkit-backdrop-filter: blur(20px); /* For Safari */
             border-radius: 1rem; /* Rounded corners */
-            box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); /* Lighter shadow */
             transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+            animation: subtle-glow 4s infinite alternate ease-in-out;
         }
         .project-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.3); /* Slightly less aggressive hover shadow */
-            background-color: rgba(255, 255, 255, 0.03); /* Slightly more opaque on hover */
-            border-color: rgba(255, 255, 255, 0.08); /* Slightly stronger border on hover */
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.3), 0 0 25px rgba(20, 184, 166, 0.6);
+            background-color: rgba(255, 255, 255, 0.03);
+            border-color: rgba(20, 184, 166, 0.4);
+            animation-play-state: paused;
         }
         #project-modal {
             transition: opacity 0.3s ease-in-out;
@@ -440,6 +452,7 @@
                                  <div class="p-4 rounded-lg stagger-item what-i-do-item"><strong>Video Editing:</strong> Crafting narratives from raw footage.</div>
                                  <div class="p-4 rounded-lg stagger-item what-i-do-item"><strong>Motion Graphics:</strong> Designing dynamic 2D/3D animations.</div>
                                  <div class="p-4 rounded-lg stagger-item what-i-do-item"><strong>Color Grading:</strong> Setting the mood and tone of visuals.</div>
+                                 <div class="p-4 rounded-lg stagger-item what-i-do-item"><strong>AI:</strong> Integrating artificial intelligence in creative workflows.</div>
                                  <div class="p-4 rounded-lg stagger-item what-i-do-item"><strong>Post-Production Supervision:</strong> Managing workflows from start to finish.</div>
                             </div>
                              <h3 class="text-2xl font-bold mb-4 mt-8 text-neutral-50 foggy-text-appear">Skills & Expertise</h3>
@@ -449,6 +462,7 @@
                                  <span class="skill-tag py-1 px-3 rounded-full stagger-item">Photoshop</span>
                                  <span class="skill-tag py-1 px-3 rounded-full stagger-item">Illustrator</span>
                                  <span class="skill-tag py-1 px-3 rounded-full stagger-item">Adobe Audition</span>
+                                 <span class="skill-tag py-1 px-3 rounded-full stagger-item">AI Tools</span>
                                  <span class="skill-tag py-1 px-3 rounded-full stagger-item">Storytelling</span>
                              </div>
                         </div>
@@ -602,7 +616,7 @@ document.addEventListener('DOMContentLoaded', function() {
             title: "Asmak Seafood Commercial",
             categories: ["commercial"],
             img: "https://i.postimg.cc/ZqgSGJf7/Asmak-Seafood-Commercial.png",
-            videoUrl: "https://www.youtube.com/embed/PnpKKkZTkxc?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&mute=1&playlist=PnpKKkZTkxc",
+            videoUrl: "https://www.youtube.com/embed/PnpKKkZTkxc?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&playlist=PnpKKkZTkxc",
             client: "AE",
             role: "Editor, Director",
             description: "A commercial video for Asmak Seafood restaurant, showcasing the venue, food, and high-quality atmosphere."
@@ -621,7 +635,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 10,
             title: "Abu Dhabi Class Compilation Reel",
             categories: ["reels", "trailer"],
-            img: "https://placehold.co/600x400/0d9488/ffffff?text=Abu+Dhabi+Reel",
+            img: "https://placehold.co/600x400/000000/FFFFFF?text=Abu+Dhabi%0AClass%0AReel",
             videoUrl: "https://drive.google.com/file/d/1gGt9-PKhrFptZ8y0dIU9hZ5juXa8JKMb/preview",
             client: "Social Studio",
             role: "Video Editor",
@@ -631,7 +645,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 11,
             title: "The G.O.A.T Final Teaser",
             categories: ["reels", "vfx"],
-            img: "https://placehold.co/600x400/0d9488/ffffff?text=G.O.A.T+Teaser",
+            img: "https://placehold.co/600x400/000000/FFFFFF?text=The+G.O.A.T%0AFinal+Teaser",
             videoUrl: "https://drive.google.com/file/d/1m7ewl8sZtM6OY9ntkApkPa7SGdBIEP3v/preview",
             client: "Super",
             role: "VFX Artist, Editor",
@@ -641,7 +655,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 12,
             title: "Reif Restaurant",
             categories: ["reels", "commercial"],
-            img: "https://placehold.co/600x400/0d9488/ffffff?text=Reif+Restaurant",
+            img: "https://placehold.co/600x400/000000/FFFFFF?text=Reif+Restaurant",
             videoUrl: "https://drive.google.com/file/d/1D7wnVnl-GT5CnRTlOkf39MqPv7C1E7yw/preview",
             client: "Social Studio",
             role: "Editor, Colorist",
@@ -651,7 +665,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 13,
             title: "Sol Marketing Tips Edit",
             categories: ["reels", "vfx"],
-            img: "https://placehold.co/600x400/0d9488/ffffff?text=Sol+Marketing",
+            img: "https://placehold.co/600x400/000000/FFFFFF?text=Sol+Marketing%0ATips+Edit",
             videoUrl: "https://drive.google.com/file/d/109FCBhVn8LCVzcfc7DplqrmEXC0eYeYc/preview",
             client: "Sol Marketing",
             role: "Editor, Motion Graphics",
@@ -661,7 +675,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 14,
             title: "Osier Product Reel",
             categories: ["reels", "commercial"],
-            img: "https://placehold.co/600x400/0d9488/ffffff?text=Osier+Reel",
+            img: "https://placehold.co/600x400/000000/FFFFFF?text=Osier+Product+Reel",
             videoUrl: "https://drive.google.com/file/d/15BAJM6C3gX6cIUDoe9C3vzqUEUNH0iyA/preview",
             client: "Social Studio",
             role: "Video Editor",
@@ -671,7 +685,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 15,
             title: "Landing Page Video",
             categories: ["reels", "animation"],
-            img: "https://placehold.co/600x400/0d9488/ffffff?text=Landing+Page",
+            img: "https://placehold.co/600x400/000000/FFFFFF?text=Landing+Page+Video",
             videoUrl: "https://drive.google.com/file/d/1MoeI4UTrZskpZcwJ70mo_7esAUbsEfWj/preview",
             client: "Sol Marketing",
             role: "Animator, Editor",
@@ -681,7 +695,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 16,
             title: "Koshary ADS Reel",
             categories: ["reels", "commercial"],
-            img: "https://placehold.co/600x400/0d9488/ffffff?text=Koshary+ADS",
+            img: "https://placehold.co/600x400/000000/FFFFFF?text=Koshary+ADS+Reel",
             videoUrl: "https://drive.google.com/file/d/1qYJZi6AqfJ7O92ahqbcM-9uulZ9blcbI/preview",
             client: "AE Media Hub",
             role: "Editor",
@@ -691,7 +705,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 17,
             title: "Marketing Tips Animation Video",
             categories: ["reels", "animation"],
-            img: "https://placehold.co/600x400/0d9488/ffffff?text=Marketing+Animation",
+            img: "https://placehold.co/600x400/000000/FFFFFF?text=Marketing+Tips%0AAnimation",
             videoUrl: "https://drive.google.com/file/d/1yKlM1uvkSNKk8047o2gg3pk8oIazCz0K/preview",
             client: "Sol Marketing",
             role: "Animator",
@@ -701,7 +715,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 18,
             title: "Drill Rap Song Visuals",
             categories: ["music", "ai"],
-            img: "https://placehold.co/600x400/0d9488/ffffff?text=Drill+Visuals",
+            img: "https://placehold.co/600x400/000000/FFFFFF?text=Drill+Rap+Visuals",
             videoUrl: "https://www.youtube.com/embed/BJmfebC2Mx4",
             client: "Super",
             role: "AI Artist, Visualizer",
@@ -711,7 +725,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 19,
             title: "Ouoda Short Promo",
             categories: ["reels", "commercial"],
-            img: "https://placehold.co/600x400/0d9488/ffffff?text=Ouoda+Promo",
+            img: "https://placehold.co/600x400/000000/FFFFFF?text=Ouoda+Short+Promo",
             videoUrl: "https://www.youtube.com/embed/PNQcQF-igWM",
             client: "Ouoda",
             role: "Editor",
@@ -721,7 +735,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 20,
             title: "3D Lyrics Video",
             categories: ["music", "animation"],
-            img: "https://placehold.co/600x400/0d9488/ffffff?text=3D+Lyrics",
+            img: "https://placehold.co/600x400/000000/FFFFFF?text=3D+Lyrics+Video",
             videoUrl: "https://www.youtube.com/embed/bNfLyDr50nI",
             client: "Super",
             role: "3D Animator, Motion Graphics",
@@ -731,7 +745,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 21,
             title: "Quince Food Reel",
             categories: ["reels", "commercial"],
-            img: "https://placehold.co/600x400/0d9488/ffffff?text=Quince+Reel",
+            img: "https://placehold.co/600x400/000000/FFFFFF?text=Quince+Food+Reel",
             videoUrl: "https://drive.google.com/file/d/1WnASC3XKmn1eIe8wLfGLEH3o45okTSGE/preview",
             client: "Social Studio",
             role: "Editor",
@@ -741,7 +755,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 22,
             title: "Bla Bla Competition Reel",
             categories: ["reels", "trailer"],
-            img: "https://placehold.co/600x400/0d9488/ffffff?text=Bla+Bla+Reel",
+            img: "https://placehold.co/600x400/000000/FFFFFF?text=Bla+Bla%0ACompetition+Reel",
             videoUrl: "https://drive.google.com/file/d/1hHZkD8HQw9D9bpMW8V2jnIE5KVTRj0nX/preview",
             client: "Social Studio",
             role: "Editor",
@@ -751,7 +765,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 23,
             title: "Monkeybar Event Reel",
             categories: ["reels", "trailer"],
-            img: "https://placehold.co/600x400/0d9488/ffffff?text=Monkeybar+Reel",
+            img: "https://placehold.co/600x400/000000/FFFFFF?text=Monkeybar+Event+Reel",
             videoUrl: "https://drive.google.com/file/d/1GJrWTyfZdxgci2QvduqM4J3ue5UU4TG-/preview",
             client: "Social Studio",
             role: "Editor",
@@ -761,7 +775,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 24,
             title: "Love Story Wedding",
             categories: ["wedding"],
-            img: "https://placehold.co/600x400/0d9488/ffffff?text=Love+Story",
+            img: "https://placehold.co/600x400/000000/FFFFFF?text=Love+Story+Wedding",
             videoUrl: "https://player.vimeo.com/video/791759868",
             client: "AE Media Hub",
             role: "Cinematic Editor, Storyteller",
@@ -771,7 +785,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 25,
             title: "Gaming Montage 1",
             categories: ["gaming"],
-            img: "https://placehold.co/600x400/0d9488/ffffff?text=Gaming+1",
+            img: "https://placehold.co/600x400/000000/FFFFFF?text=Gaming+Montage+1",
             videoUrl: "https://www.youtube.com/embed/FKVF7MhZKJk",
             client: "[EG] Super",
             role: "Video Editor",
@@ -781,7 +795,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 26,
             title: "Gaming Montage 2",
             categories: ["gaming"],
-            img: "https://placehold.co/600x400/0d9488/ffffff?text=Gaming+2",
+            img: "https://placehold.co/600x400/000000/FFFFFF?text=Gaming+Montage+2",
             videoUrl: "https://www.youtube.com/embed/6cEIfVa65y0",
             client: "[EG] Super",
             role: "Video Editor",
@@ -791,7 +805,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 27,
             title: "Gaming Montage 3",
             categories: ["gaming"],
-            img: "https://placehold.co/600x400/0d9488/ffffff?text=Gaming+3",
+            img: "https://placehold.co/600x400/000000/FFFFFF?text=Gaming+Montage+3",
             videoUrl: "https://www.youtube.com/embed/6Ck7RFD9aM8",
             client: "[EG] Super",
             role: "Video Editor",
@@ -801,11 +815,91 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 28,
             title: "Gaming Montage 4",
             categories: ["gaming"],
-            img: "https://placehold.co/600x400/0d9488/ffffff?text=Gaming+4",
+            img: "https://placehold.co/600x400/000000/FFFFFF?text=Gaming+Montage+4",
             videoUrl: "https://www.youtube.com/embed/XdQ1Z08-IZM",
             client: "[EG] Super",
             role: "Video Editor",
             description: "A showcase of exciting gaming content and highlights."
+        },
+        {
+            id: 29,
+            title: "Ducking Friday Event Reel",
+            categories: ["reels", "trailer"],
+            img: "https://placehold.co/600x400/000000/FFFFFF?text=Ducking+Friday",
+            videoUrl: "https://drive.google.com/file/d/1FSUDe8RiMzHybiXC8U-EkPel3l2IosWT/preview",
+            client: "Social Studio",
+            role: "Editor",
+            description: "High-energy event reel for Ducking Friday."
+        },
+        {
+            id: 30,
+            title: "Realistic AI Generated Video",
+            categories: ["ai"],
+            img: "https://placehold.co/600x400/000000/FFFFFF?text=Realistic+AI+Video",
+            videoUrl: "https://drive.google.com/file/d/11MlAiFdM98jFbrgjwcLicyx5ABCuEMpZ/preview",
+            client: "Personal",
+            role: "AI Artist",
+            description: "An exploration into creating realistic scenes using AI."
+        },
+        {
+            id: 31,
+            title: "Trapped in the Prompt",
+            categories: ["ai"],
+            img: "https://placehold.co/600x400/000000/FFFFFF?text=Trapped+in+the+Prompt",
+            videoUrl: "https://drive.google.com/file/d/1ENd5PyRngemNzLcy9mSHuP_fFKlHUp98/preview",
+            client: "Personal",
+            role: "AI Artist",
+            description: "A creative piece exploring the concept of being trapped within an AI prompt."
+        },
+        {
+            id: 32,
+            title: "Light & Fit Reel",
+            categories: ["reels", "commercial"],
+            img: "https://placehold.co/600x400/000000/FFFFFF?text=Light+%26+Fit+Reel",
+            videoUrl: "https://drive.google.com/file/d/1KipIQA0EfZBzVC1N2s4agHF4GcG-_IG2/preview",
+            client: "Sol Marketing",
+            role: "Editor",
+            description: "A commercial reel for a health and fitness brand."
+        },
+        {
+            id: 33,
+            title: "AI Generated Fans",
+            categories: ["ai"],
+            img: "https://placehold.co/600x400/000000/FFFFFF?text=AI+Generated+Fans",
+            videoUrl: "https://drive.google.com/file/d/1_reEOjhUU8g2vbh0sYGnu03fPI6vxClA/preview",
+            client: "Super",
+            role: "AI Artist",
+            description: "A video created using AI to generate realistic fans for a project."
+        },
+        {
+            id: 34,
+            title: "Tools Guide Video",
+            categories: ["reels", "vfx"],
+            img: "https://placehold.co/600x400/000000/FFFFFF?text=Tools+Guide+Video",
+            videoUrl: "https://drive.google.com/file/d/1MK4aUN6q7XM5Y2wjW6NBOxZxB4YTH5vZ/preview",
+            client: "Sol Marketing",
+            role: "VFX Artist, Editor",
+            description: "An instructional video with VFX to guide users through a set of tools."
+        },
+        {
+            id: 35,
+            title: "A1 Studio Cypher",
+            categories: ["music"],
+            img: "https://placehold.co/600x400/000000/FFFFFF?text=A1+Studio+Cypher",
+            videoUrl: "https://drive.google.com/file/d/1IDXuLzt51cmw9ECmm2vOxG7zVIWjjX4t/preview",
+            client: "A1 Studio",
+            role: "Editor",
+            description: "A music video for the A1 Studio cypher."
+        },
+        {
+            id: 36,
+            title: "Website Background Video",
+            categories: ["ai"],
+            img: "https://placehold.co/600x400/000000/FFFFFF?text=Website+Background",
+            videoUrl: "https://www.youtube.com/embed/qfLBi05SV2k",
+            client: "Personal",
+            role: "AI Artist, Editor",
+            description: "An AI-enhanced video designed for use as a website background."
         }
     ];
 
