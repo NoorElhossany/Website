@@ -104,33 +104,60 @@
             box-shadow: 0 4px 8px rgba(20, 184, 166, 0.4);
         }
         
-        @keyframes subtle-glow {
+        @keyframes rotate {
             from {
-                box-shadow: 0 0 5px rgba(20, 184, 166, 0.2), 0 0 2px rgba(20, 184, 166, 0.1);
-                border-color: rgba(255, 255, 255, 0.03);
+                transform: rotate(0deg);
             }
             to {
-                box-shadow: 0 0 15px rgba(20, 184, 166, 0.4), 0 0 5px rgba(20, 184, 166, 0.2);
-                border-color: rgba(20, 184, 166, 0.2);
+                transform: rotate(360deg);
             }
         }
 
         .project-card {
-            background-color: rgba(255, 255, 255, 0.01); /* Extremely transparent */
-            border: 1px solid rgba(255, 255, 255, 0.03); /* Very subtle border */
-            backdrop-filter: blur(20px); /* Stronger blur for frosted glass effect */
-            -webkit-backdrop-filter: blur(20px); /* For Safari */
-            border-radius: 1rem; /* Rounded corners */
+            position: relative;
+            overflow: hidden;
+            background-color: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-radius: 1rem;
             transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
-            animation: subtle-glow 4s infinite alternate ease-in-out;
+            z-index: 1;
         }
+        
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 250%; /* Larger to ensure the gradient is smooth at the edges */
+            height: 250%;
+            background: conic-gradient(
+                transparent,
+                rgba(20, 184, 166, 0.15), /* Less intense glow color */
+                transparent 10% /* Makes the glow thinner */
+            );
+            animation: rotate 6s linear infinite;
+            z-index: -1;
+            transition: background 0.3s ease;
+        }
+
         .project-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.3), 0 0 25px rgba(20, 184, 166, 0.6);
+            box-shadow: 0 10px 20px -5px rgba(0, 0, 0, 0.3);
             background-color: rgba(255, 255, 255, 0.03);
-            border-color: rgba(20, 184, 166, 0.4);
-            animation-play-state: paused;
+            border-color: rgba(255, 255, 255, 0.08);
         }
+        
+        .project-card:hover::before {
+            background: conic-gradient(
+                transparent,
+                rgba(20, 184, 166, 0.4), /* More intense glow on hover */
+                transparent 10%
+            );
+        }
+
         #project-modal {
             transition: opacity 0.3s ease-in-out;
             z-index: 100; /* Ensure modal is above blurred content */
@@ -451,6 +478,7 @@
                             <div id="what-i-do-list" class="grid sm:grid-cols-2 gap-6 text-neutral-300">
                                  <div class="p-4 rounded-lg stagger-item what-i-do-item"><strong>Video Editing:</strong> Crafting narratives from raw footage.</div>
                                  <div class="p-4 rounded-lg stagger-item what-i-do-item"><strong>Motion Graphics:</strong> Designing dynamic 2D/3D animations.</div>
+                                 <div class="p-4 rounded-lg stagger-item what-i-do-item"><strong>VFX:</strong> Creating stunning visual effects.</div>
                                  <div class="p-4 rounded-lg stagger-item what-i-do-item"><strong>Color Grading:</strong> Setting the mood and tone of visuals.</div>
                                  <div class="p-4 rounded-lg stagger-item what-i-do-item"><strong>AI:</strong> Integrating artificial intelligence in creative workflows.</div>
                                  <div class="p-4 rounded-lg stagger-item what-i-do-item"><strong>Post-Production Supervision:</strong> Managing workflows from start to finish.</div>
@@ -616,7 +644,7 @@ document.addEventListener('DOMContentLoaded', function() {
             title: "Asmak Seafood Commercial",
             categories: ["commercial"],
             img: "https://i.postimg.cc/ZqgSGJf7/Asmak-Seafood-Commercial.png",
-            videoUrl: "https://www.youtube.com/embed/PnpKKkZTkxc?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&playlist=PnpKKkZTkxc",
+            videoUrl: "https://www.youtube.com/embed/PnpKKkZTkxc?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&mute=1&playlist=PnpKKkZTkxc",
             client: "AE",
             role: "Editor, Director",
             description: "A commercial video for Asmak Seafood restaurant, showcasing the venue, food, and high-quality atmosphere."
