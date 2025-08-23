@@ -266,6 +266,7 @@
         /* Project card fade-in animation on filter change */
         .project-card.fade-in {
             animation: projectFadeIn 0.8s ease-out forwards;
+            opacity: 0; /* Start hidden for animation */
         }
 
         @keyframes projectFadeIn {
@@ -958,10 +959,11 @@ document.addEventListener('DOMContentLoaded', function() {
         projectGrid.innerHTML = ''; // Clear the grid first
         const filteredProjects = projects.filter(p => p.categories.includes(filter));
 
-        filteredProjects.forEach(project => {
+        filteredProjects.forEach((project, index) => {
             const projectCard = document.createElement('div');
             projectCard.className = 'project-card cursor-pointer fade-in'; // Add classes for styling and animation
             projectCard.dataset.id = project.id;
+            projectCard.style.animationDelay = `${index * 0.15}s`;
             
             projectCard.innerHTML = `
                 <div class="relative">
