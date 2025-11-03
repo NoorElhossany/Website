@@ -4,11 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Noor Elhossany - Senior Video Editor & Motion Designer</title>
+    <!-- Favicon using SVG for a simple, self-contained icon -->
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%232dd4bf%22>NE</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
-    <!-- 
+    <!--  
         Chosen Palette: Deep Dark Neutrals (Neutral-950 background, Neutral-800/700 sections/cards, Neutral-50/200 text, Vibrant Teal-500/600 accents)
         Application Structure Plan: A single-page application (SPA) with tab-like navigation (Home, Portfolio, About, Contact) that smoothly scrolls to content sections. This structure provides a fast, seamless user experience without page reloads. A modal is used for project details to keep the user in the context of the main portfolio grid, which is a best practice for usability in portfolios.
         Visualization & Content Choices: Report Info: Portfolio -> Goal: Organize/Compare -> Viz: Filterable Grid & Modal -> Interaction: Users click category buttons to filter projects instantly (JS). Clicking a project thumbnail opens a modal with details and an embedded video. -> Justification: This is highly intuitive and allows users to quickly find relevant work and dive into details without losing their place. -> Library/Method: Vanilla JS for DOM manipulation, filtering logic, and modal control. Content is dynamically generated from a JS array.
@@ -20,6 +22,7 @@
             background-color: #0A0A0A; /* Very dark background */
             overflow-x: hidden; /* Prevent horizontal scroll */
         }
+        
         #liquid-background {
             position: fixed;
             top: 0;
@@ -265,7 +268,7 @@
 
         /* Project card fade-in animation on filter change */
         .project-card.fade-in {
-            animation: projectFadeIn 0.8s ease-out forwards;
+            animation: projectFadeIn 0.5s ease-out forwards;
             opacity: 0; /* Start hidden for animation */
         }
 
@@ -375,9 +378,67 @@
             80% { clip-path: inset(10% 0 89% 0); }
             100% { clip-path: inset(60% 0 30% 0); }
         }
+
+        /* Enhanced Contact Form Styles */
+        #contact-form-wrapper {
+            position: relative;
+        }
+        #contact-form input:focus, #contact-form textarea:focus {
+            border-color: #14b8a6;
+            box-shadow: 0 0 15px rgba(20, 184, 166, 0.5);
+        }
+        #form-success-message {
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.5s ease-in-out;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+        }
+
+        /* New Service Card Styles */
+        .service-card {
+            background-color: rgba(255, 255, 255, 0.01);
+            border: 1px solid rgba(255, 255, 255, 0.03);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            border-radius: 1rem;
+            box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease-in-out;
+            text-align: center;
+            padding: 1.5rem;
+        }
+        .service-card:hover {
+            background-color: rgba(255, 255, 255, 0.03);
+            border-color: rgba(20, 184, 166, 0.5);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+        }
+
+        /* New Social Icon Styles */
+        .social-icon {
+            color: #a3a3a3; /* neutral-400 */
+            transition: color 0.3s ease, transform 0.3s ease;
+        }
+        .social-icon:hover {
+            color: #2dd4bf; /* teal-400 */
+            transform: scale(1.2);
+        }
+
+        /* Remove clearfix as it's not needed with grid */
+        /* .clearfix::after { ... } */
+
     </style>
 </head>
 <body class="bg-neutral-950 text-neutral-200">
+
     <!-- The new live background canvas -->
     <canvas id="liquid-background"></canvas>
 
@@ -413,11 +474,11 @@
             <section id="home" class="min-h-screen flex items-center justify-center text-center text-white overflow-hidden pt-16">
                 <!-- YouTube video as background -->
                 <div class="video-container">
-                    <iframe src="https://www.youtube.com/embed/qfLBi05SV2k?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&mute=1&playlist=qfLBi05SV2k" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+                    <iframe src="https://www.youtube.com/embed/qfLBi05SV2k?controls=0&rel=0&autoplay=1&loop=1&mute=1&playlist=qfLBi05SV2k" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 </div>
                 <div class="relative z-10 p-4 sm:p-6">
                     <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 leading-tight animate-headline">Noor Elhossany</h1>
-                    <p class="text-base md:text-xl max-w-3xl mx-auto mb-8 font-light foggy-text-appear">The Architect of Dreams</p>
+                    <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8 font-light foggy-text-appear">The VisioNoory</p>
                     <div class="space-x-4">
                         <a href="#portfolio" class="main-cta-button glass-button font-bold py-3 px-8 rounded-full">View Portfolio</a>
                     </div>
@@ -425,91 +486,122 @@
             </section>
 
             <!-- Clients Section -->
-            <section id="clients" class="py-16 md:py-24 animate-on-scroll">
+            <section id="clients" class="py-12 md:py-20 lg:py-24 animate-on-scroll">
                 <div class="container mx-auto px-4 sm:px-6">
                     <h3 class="text-center text-sm font-bold tracking-widest text-neutral-400 uppercase mb-10 foggy-text-appear">Trusted by Industry Leaders</h3>
-                    <div id="client-logos-container" class="flex flex-wrap justify-center items-center gap-x-8 sm:gap-x-12 gap-y-10">
-                        <img src="https://i.postimg.cc/13Y8Ztgg/profile-IG.png" alt="Client IG" class="client-logo h-20 md:h-32 stagger-item" onerror="this.onerror=null;this.src='https://placehold.co/128x128/0a0a0a/ffffff?text=Logo+1';">
-                        <img src="https://i.postimg.cc/gkmXV1F0/Amd.png" alt="Client Amd" class="client-logo h-10 md:h-16 stagger-item" onerror="this.onerror=null;this.src='https://placehold.co/128x64/0a0a0a/ffffff?text=Logo+2';">
-                        <img src="https://i.postimg.cc/SQwXRWgg/sol-png.png" alt="Client Sol" class="client-logo h-8 md:h-12 stagger-item" onerror="this.onerror=null;this.src='https://placehold.co/128x48/0a0a0a/ffffff?text=Logo+3';">
-                        <img src="https://i.postimg.cc/jdcWZvt4/sf.png" alt="Client SF" class="client-logo h-10 md:h-16 stagger-item" onerror="this.onerror=null;this.src='https://placehold.co/128x64/0a0a0a/ffffff?text=Logo+4';">
-                        <img src="https://i.postimg.cc/9XGwqCkS/ae.png" alt="Client AE" class="client-logo h-20 md:h-32 stagger-item" onerror="this.onerror=null;this.src='https://placehold.co/128x128/0a0a0a/ffffff?text=Logo+5';">
-                        <img src="https://i.postimg.cc/52tXGvtd/batt.png" alt="Client Batt" class="client-logo h-10 md:h-16 stagger-item" onerror="this.onerror=null;this.src='https://placehold.co/128x64/0a0a0a/ffffff?text=Logo+6';">
+                    <div class="overflow-x-auto pb-4">
+                        <div id="client-logos-container" class="flex flex-nowrap justify-start md:justify-center items-center gap-x-8 sm:gap-x-12">
+                            <img src="https://i.postimg.cc/13Y8Ztgg/profile-IG.png" alt="Client IG" class="client-logo h-20 md:h-24 stagger-item flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/128x128/0a0a0a/ffffff?text=Logo+1';">
+                            <img src="https://i.postimg.cc/gkmXV1F0/Amd.png" alt="Client Amd" class="client-logo h-10 md:h-12 stagger-item flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/128x64/0a0a0a/ffffff?text=Logo+2';">
+                            <img src="https://i.postimg.cc/SQwXRWgg/sol-png.png" alt="Client Sol" class="client-logo h-8 md:h-10 stagger-item flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/128x48/0a0a0a/ffffff?text=Logo+3';">
+                            <img src="https://i.postimg.cc/jdcWZvt4/sf.png" alt="Client SF" class="client-logo h-10 md:h-12 stagger-item flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/128x64/0a0a0a/ffffff?text=Logo+4';">
+                            <img src="https://i.postimg.cc/9XGwqCkS/ae.png" alt="Client AE" class="client-logo h-20 md:h-24 stagger-item flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/128x128/0a0a0a/ffffff?text=Logo+5';">
+                            <img src="https://i.postimg.cc/52tXGvtd/batt.png" alt="Client Batt" class="client-logo h-10 md:h-12 stagger-item flex-shrink-0" onerror="this.onerror=null;this.src='https://placehold.co/128x64/0a0a0a/ffffff?text=Logo+6';">
+                        </div>
                     </div>
                 </div>
             </section>
 
             <!-- Portfolio Section -->
-            <section id="portfolio" class="py-16 md:py-24 animate-on-scroll">
+            <section id="portfolio" class="py-20 lg:py-24 animate-on-scroll">
                 <div class="container mx-auto px-4 sm:px-6">
                     <div class="text-center mb-12">
                         <h2 class="text-3xl sm:text-4xl font-bold mb-4 text-neutral-50 foggy-text-appear">My Work</h2>
                         <p class="text-base md:text-lg text-neutral-300 max-w-2xl mx-auto foggy-text-appear">A selection of projects that showcase my passion for visual storytelling and technical expertise.</p>
                     </div>
                     <div id="filter-container" class="flex flex-wrap justify-center gap-2 mb-12">
-                        <button class="filter-btn glass-button active text-sm sm:text-base py-1 px-3 sm:py-2 sm:px-4 rounded-full" data-filter="top">Top</button>
-                        <button class="filter-btn glass-button text-sm sm:text-base py-1 px-3 sm:py-2 sm:px-4 rounded-full" data-filter="commercial">Commercials</button>
-                        <button class="filter-btn glass-button text-sm sm:text-base py-1 px-3 sm:py-2 sm:px-4 rounded-full" data-filter="music">Music</button>
-                        <button class="filter-btn glass-button text-sm sm:text-base py-1 px-3 sm:py-2 sm:px-4 rounded-full" data-filter="wedding">Wedding</button>
-                        <button class="filter-btn glass-button text-sm sm:text-base py-1 px-3 sm:py-2 sm:px-4 rounded-full" data-filter="animation">Animation</button>
-                        <button class="filter-btn glass-button text-sm sm:text-base py-1 px-3 sm:py-2 sm:px-4 rounded-full" data-filter="vfx">VFX</button>
-                        <button class="filter-btn glass-button text-sm sm:text-base py-1 px-3 sm:py-2 sm:px-4 rounded-full" data-filter="reels">Reels</button>
-                        <button class="filter-btn glass-button text-sm sm:text-base py-1 px-3 sm:py-2 sm:px-4 rounded-full" data-filter="gaming">Gaming</button>
-                        <button class="filter-btn glass-button text-sm sm:text-base py-1 px-3 sm:py-2 sm:px-4 rounded-full" data-filter="ai">AI</button>
+                        <button class="filter-btn glass-button active text-sm sm:text-base py-2 px-4 rounded-full" data-filter="Top 3">Top 3</button>
+                        <button class="filter-btn glass-button text-sm sm:text-base py-2 px-4 rounded-full" data-filter="commercial">Commercials</button>
+                        <button class="filter-btn glass-button text-sm sm:text-base py-2 px-4 rounded-full" data-filter="music">Music</button>
+                        <button class="filter-btn glass-button text-sm sm:text-base py-2 px-4 rounded-full" data-filter="wedding">Wedding</button>
+                        <button class="filter-btn glass-button text-sm sm:text-base py-2 px-4 rounded-full" data-filter="animation">Animation</button>
+                        <button class="filter-btn glass-button text-sm sm:text-base py-2 px-4 rounded-full" data-filter="vfx">VFX</button>
+                        <button class="filter-btn glass-button text-sm sm:text-base py-2 px-4 rounded-full" data-filter="reels">Reels</button>
+                        <button class="filter-btn glass-button text-sm sm:text-base py-2 px-4 rounded-full" data-filter="gaming">Gaming</button>
+                        <button class="filter-btn glass-button text-sm sm:text-base py-2 px-4 rounded-full" data-filter="ai">AI</button>
                     </div>
-                    <div id="project-grid" class="grid grid-cols-2 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
+                    <div id="project-grid" class="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
                         <!-- Projects will be dynamically inserted here by JavaScript -->
                     </div>
                 </div>
             </section>
 
             <!-- About Section -->
-            <section id="about" class="py-16 md:py-24 animate-on-scroll">
+             <section id="about" class="py-20 lg:py-24 animate-on-scroll">
                 <div class="container mx-auto px-4 sm:px-6">
-                    <div class="grid md:grid-cols-5 gap-8 md:gap-12 items-center">
-                        <div class="md:col-span-2">
-                            <img id="about-profile-image" src="https://i.postimg.cc/hPzT3tsk/Rapper-with-long-black-hair-wearing-sunglasses.png" alt="Noor Elhossany Headshot" class="rounded-lg shadow-xl w-full stagger-item about-image" onerror="this.onerror=null;this.src='https://placehold.co/400x400/0a0a0a/ffffff?text=Profile+Image';">
+                     <!-- Unified Grid for Mobile and Desktop -->
+                    <div class="grid grid-cols-5 gap-6 md:gap-12 items-start">
+                         <!-- Image Column -->
+                        <div class="col-span-2 flex flex-col gap-4 md:gap-8">
+                            <img src="https://lh3.googleusercontent.com/d/12siRpzfd3cA7eSS66txHOztw4i2aCtvz" alt="Noor Elhossany Headshot" class="rounded-lg shadow-xl w-full h-auto object-cover stagger-item about-image clickable-about-image" onerror="this.onerror=null;this.src='https://placehold.co/400x400/0a0a0a/ffffff?text=Profile+Image';">
+                            <img src="https://lh3.googleusercontent.com/d/1fSEicmIJn4IMSBL2UziKj7vBmjBE0YsO" alt="Noor Elhossany secondary image" class="rounded-lg shadow-xl w-full h-auto object-cover stagger-item about-image clickable-about-image" onerror="this.onerror=null;this.src='https://placehold.co/400x400/0a0a0a/ffffff?text=Second+Image';">
                         </div>
-                        <div class="md:col-span-3">
-                            <h2 class="text-3xl sm:text-4xl font-bold mb-6 text-neutral-50 foggy-text-appear">My Creative Journey</h2>
-                            <p id="about-me-text" class="text-base md:text-lg text-neutral-300 mb-6 foggy-text-appear">
-                               With over seven years as a professional video editor and five years as a motion graphic designer, I've had the privilege of bringing over 400 projects to life. My career has been focused on transforming raw footage into cinematic narratives and dynamic visuals that capture attention and tell compelling stories. I am deeply passionate about the art of post-production and dedicated to delivering exceptional results for every client.
+                        <!-- Text Column -->
+                        <div class="col-span-3">
+                            <h2 class="text-xl md:text-3xl lg:text-4xl font-bold mb-2 md:mb-6 text-neutral-50 foggy-text-appear">My Creative Journey</h2>
+                            <p id="about-me-text" class="text-xs md:text-lg text-neutral-300 mb-6 md:mb-8 foggy-text-appear">
+                               With over seven years as a professional video editor and five years as a motion graphic designer, I've had the privilege of bringing over 400 projects to life. My career has been focused on transforming raw footage into cinematic narratives and dynamic visuals that capture attention and tell compelling stories.
                             </p>
-                            <h3 class="text-2xl font-bold mb-4 mt-8 text-neutral-50 foggy-text-appear">What I Do</h3>
-                            <div id="what-i-do-list" class="grid sm:grid-cols-2 gap-6 text-neutral-300">
-                                 <div class="p-4 rounded-lg stagger-item what-i-do-item"><strong>Video Editing:</strong> Crafting narratives from raw footage.</div>
-                                 <div class="p-4 rounded-lg stagger-item what-i-do-item"><strong>Motion Graphics:</strong> Designing dynamic 2D/3D animations.</div>
-                                 <div class="p-4 rounded-lg stagger-item what-i-do-item"><strong>VFX:</strong> Creating stunning visual effects.</div>
-                                 <div class="p-4 rounded-lg stagger-item what-i-do-item"><strong>Color Grading:</strong> Setting the mood and tone of visuals.</div>
-                                 <div class="p-4 rounded-lg stagger-item what-i-do-item"><strong>Audio Mixing:</strong> Balancing and enhancing sound.</div>
-                                 <div class="p-4 rounded-lg stagger-item what-i-do-item"><strong>AI:</strong> Integrating artificial intelligence in creative workflows.</div>
-                                 <div class="p-4 rounded-lg stagger-item what-i-do-item"><strong>Post-Production Supervision:</strong> Managing workflows from start to finish.</div>
+                            <h3 class="text-lg md:text-2xl font-bold mb-3 md:mb-4 text-neutral-50 foggy-text-appear">What I Do</h3>
+                            <div id="what-i-do-list" class="grid grid-cols-1 sm:grid-cols-2 gap-3 text-neutral-300">
+                                 <div class="p-2 md:p-4 text-xs md:text-base rounded-lg stagger-item what-i-do-item"><strong>Video Editing</strong></div>
+                                 <div class="p-2 md:p-4 text-xs md:text-base rounded-lg stagger-item what-i-do-item"><strong>Motion Graphics</strong></div>
+                                 <div class="p-2 md:p-4 text-xs md:text-base rounded-lg stagger-item what-i-do-item"><strong>VFX</strong></div>
+                                 <div class="p-2 md:p-4 text-xs md:text-base rounded-lg stagger-item what-i-do-item"><strong>Color Grading</strong></div>
+                                 <div class="p-2 md:p-4 text-xs md:text-base rounded-lg stagger-item what-i-do-item"><strong>Audio Mixing</strong></div>
+                                 <div class="p-2 md:p-4 text-xs md:text-base rounded-lg stagger-item what-i-do-item"><strong>AI Content</strong></div>
                             </div>
-                             <h3 class="text-2xl font-bold mb-4 mt-8 text-neutral-50 foggy-text-appear">Skills & Expertise</h3>
+                             <h3 class="text-lg md:text-2xl font-bold mb-3 md:mb-4 mt-6 text-neutral-50 foggy-text-appear">Skills & Expertise</h3>
                              <div id="skills-list" class="flex flex-wrap gap-2">
-                                 <span class="skill-tag py-1 px-3 rounded-full stagger-item">Adobe Premiere Pro</span>
-                                 <span class="skill-tag py-1 px-3 rounded-full stagger-item">After Effects</span>
-                                 <span class="skill-tag py-1 px-3 rounded-full stagger-item">Photoshop</span>
-                                 <span class="skill-tag py-1 px-3 rounded-full stagger-item">Illustrator</span>
-                                 <span class="skill-tag py-1 px-3 rounded-full stagger-item">Adobe Audition</span>
-                                 <span class="skill-tag py-1 px-3 rounded-full stagger-item">FL Studio</span>
-                                 <span class="skill-tag py-1 px-3 rounded-full stagger-item">AI Tools</span>
-                                 <span class="skill-tag py-1 px-3 rounded-full stagger-item">Storytelling</span>
+                                 <span class="skill-tag py-1 px-2 md:px-3 text-xs md:text-base rounded-full stagger-item">Premiere Pro</span>
+                                 <span class="skill-tag py-1 px-2 md:px-3 text-xs md:text-base rounded-full stagger-item">After Effects</span>
+                                 <span class="skill-tag py-1 px-2 md:px-3 text-xs md:text-base rounded-full stagger-item">Photoshop</span>
+                                 <span class="skill-tag py-1 px-2 md:px-3 text-xs md:text-base rounded-full stagger-item">Illustrator</span>
+                                 <span class="skill-tag py-1 px-2 md:px-3 text-xs md:text-base rounded-full stagger-item">Audition</span>
+                                 <span class="skill-tag py-1 px-2 md:px-3 text-xs md:text-base rounded-full stagger-item">FL Studio</span>
+                                 <span class="skill-tag py-1 px-2 md:px-3 text-xs md:text-base rounded-full stagger-item">AI Tools</span>
                              </div>
                         </div>
                     </div>
                 </div>
             </section>
 
+            <!-- Services Section -->
+            <section id="services" class="py-20 lg:py-24 animate-on-scroll">
+                <div class="container mx-auto px-4 sm:px-6">
+                    <div class="text-center mb-12">
+                        <h2 class="text-3xl sm:text-4xl font-bold mb-4 text-neutral-50 foggy-text-appear">Services I Offer</h2>
+                        <p class="text-base md:text-lg text-neutral-300 max-w-2xl mx-auto foggy-text-appear">Tailored solutions to bring your vision to life.</p>
+                    </div>
+                    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+                        <!-- Service Card 1 -->
+                        <div class="service-card stagger-item">
+                            <h3 class="text-xl font-bold mb-3 text-teal-400">Full Post-Production</h3>
+                            <p class="text-neutral-300">Complete video editing, color grading, sound mixing, and final delivery for commercials, films, and corporate videos.</p>
+                        </div>
+                        <!-- Service Card 2 -->
+                        <div class="service-card stagger-item">
+                            <h3 class="text-xl font-bold mb-3 text-teal-400">Motion Graphics & VFX</h3>
+                            <p class="text-neutral-300">Dynamic 2D/3D animations, logo reveals, and stunning visual effects to elevate your project's visual appeal.</p>
+                        </div>
+                        <!-- Service Card 3 -->
+                        <div class="service-card stagger-item">
+                            <h3 class="text-xl font-bold mb-3 text-teal-400">AI-Powered Content</h3>
+                            <p class="text-neutral-300">Leveraging cutting-edge AI tools for unique visual styles, realistic scene generation, and creative video concepts.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
             <!-- Contact Section -->
-            <section id="contact" class="py-16 md:py-24 animate-on-scroll">
+            <section id="contact" class="py-20 lg:py-24 animate-on-scroll">
                 <div class="container mx-auto px-4 sm:px-6">
                     <div class="text-center mb-12">
                         <h2 class="text-3xl sm:text-4xl font-bold mb-4 text-neutral-50 foggy-text-appear">Let's Create Together</h2>
                         <p class="text-base md:text-lg text-neutral-300 max-w-2xl mx-auto foggy-text-appear">Have a project in mind? I'd love to hear about it.</p>
                     </div>
-                    <div class="max-w-xl mx-auto">
-                        <form action="https://submit-form.com/YeEramEAb" method="POST">
+                    <div id="contact-form-wrapper" class="max-w-xl mx-auto">
+                        <form id="contact-form" action="https://submit-form.com/YeEramEAb" method="POST">
                             <input type="hidden" name="_replyto" value="super.mgmts@gmail.com">
                             <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-6">
                                 <input type="text" placeholder="Your Name" class="w-full p-3 rounded-lg border border-neutral-600 bg-neutral-700 text-neutral-200 focus:ring-2 focus:ring-teal-500 focus:outline-none transition stagger-item" required name="name">
@@ -520,15 +612,24 @@
                                 <button type="submit" class="submit-button glass-button font-bold py-3 px-12 rounded-full stagger-item">Send Message</button>
                             </div>
                         </form>
+                        <div id="form-success-message">
+                            <h3 class="text-2xl font-bold text-teal-400 mb-4">Thank You!</h3>
+                            <p class="text-neutral-300">Your message has been sent successfully. I'll get back to you soon.</p>
+                        </div>
                     </div>
                 </div>
             </section>
         </main>
         <!-- Footer -->
-        <footer class="bg-neutral-900 text-neutral-300 py-8">
+        <footer class="bg-neutral-900 text-neutral-300 py-12">
             <div class="container mx-auto px-6 text-center">
+                <div class="flex justify-center items-center gap-6 mb-8">
+                     <a href="#" class="glass-button font-bold py-3 px-8 rounded-full">Download CV</a>
+                </div>
                 <div class="flex justify-center space-x-6 mb-4">
-                    <a href="https://www.linkedin.com/in/noor-elhossany" class="hover:text-white transition-colors" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+                    <a href="https://www.linkedin.com/in/noor-elhossany" class="social-icon" target="_blank" rel="noopener noreferrer">
+                        <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true"><path fill-rule="evenodd" d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z" clip-rule="evenodd"/></svg>
+                    </a>
                 </div>
                 <p class="text-sm text-neutral-400">&copy; 2024 Noor Elhossany. All Rights Reserved.</p>
             </div>
@@ -568,19 +669,46 @@
     
 <script>
 document.addEventListener('DOMContentLoaded', function() {
-    // --- DATA ---
-    // This array holds all the project information.
-    // To add a new project, just copy an existing object and change its details.
     const projects = [
         {
             id: 1,
             title: "Social Studio - Fitness Showreel 2025",
-            categories: ["top", "reels", "commercial"],
+            categories: ["Top 3", "reels", "commercial"],
             img: "https://i.postimg.cc/qvFxvtC0/Social-Studio-Fitness-Showreel-2025.png",
             videoUrl: "https://drive.google.com/file/d/1Oge0BrnAr3juDGL3geZ8GfEt4m-w50s9/preview",
             client: "Social Studio",
             role: "Editor, Colorist",
             description: "A dynamic and high-energy showreel for a fitness brand, showcasing powerful editing and seamless coloring to capture the brand's vitality."
+        },
+        {
+            id: 37,
+            title: "Post-Apocalyptic City",
+            categories: ["Top 3", "vfx", "animation"],
+            img: "https://i.ytimg.com/vi/D-hM56NsStU/maxresdefault.jpg",
+            videoUrl: "https://www.youtube.com/embed/D-hM56NsStU",
+            client: "Personal",
+            role: "3D Artist, Animator",
+            description: "A cinematic render of a post-apocalyptic city made using Unreal Engine 5, showcasing advanced 3D modeling and animation skills."
+        },
+        {
+            id: 5,
+            title: "The G.O.A.T Music Video",
+            categories: ["Top 3", "music", "vfx"],
+            img: "https://i.postimg.cc/50CV1DTx/The-G-O-A-T-Music-Video.png",
+            videoUrl: "https://www.youtube.com/embed/GJf0HuRtxPQ",
+            client: "Super",
+            role: "Editor, VFX Artist",
+            description: "A music video with fast-paced editing, compelling storytelling, and powerful visual effects."
+        },
+        {
+            id: 38,
+            title: "Purple Moon Planet",
+            categories: ["vfx", "animation"],
+            img: "https://i.ytimg.com/vi/4s6iFgBtUSI/maxresdefault.jpg",
+            videoUrl: "https://www.youtube.com/embed/4s6iFgBtUSI",
+            client: "Personal",
+            role: "3D Artist, Animator",
+            description: "A cinematic render of a planet called the purple moon planet made using Unreal Engine 5, demonstrating environmental design and visual effects."
         },
         {
             id: 2,
@@ -613,21 +741,11 @@ document.addEventListener('DOMContentLoaded', function() {
             description: "An official trailer for an upcoming music video, combining dynamic editing, powerful music, and stunning visual effects."
         },
         {
-            id: 5,
-            title: "The G.O.A.T Music Video",
-            categories: ["top", "music", "vfx"],
-            img: "https://i.postimg.cc/50CV1DTx/The-G-O-A-T-Music-Video.png",
-            videoUrl: "https://www.youtube.com/embed/GJf0HuRtxPQ?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&mute=1&playlist=GJf0HuRtxPQ",
-            client: "Super",
-            role: "Editor, VFX Artist",
-            description: "A music video with fast-paced editing, compelling storytelling, and powerful visual effects."
-        },
-        {
             id: 6,
             title: "3la Allah Animation Video",
             categories: ["music", "animation", "ai"],
             img: "https://i.postimg.cc/D03KzB31/3la-Allah-Animation-Video.png",
-            videoUrl: "https://www.youtube.com/embed/8bpgQ0aPDCQ?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&mute=1&playlist=8bpgQ0aPDCQ",
+            videoUrl: "https://www.youtube.com/embed/8bpgQ0aPDCQ",
             client: "Keen, Super",
             role: "Animator, AI Artist",
             description: "A simple looping animation video for a song, incorporating AI-generated elements for a unique visual style."
@@ -637,7 +755,7 @@ document.addEventListener('DOMContentLoaded', function() {
             title: "To the infinite Wedding film",
             categories: ["wedding"],
             img: "https://i.postimg.cc/3xt7ZX2H/To-the-infinite-Wedding-film.png",
-            videoUrl: "https://www.youtube.com/embed/pGrbpVAT1tI?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&mute=1&playlist=pGrbpVAT1tI",
+            videoUrl: "https://www.youtube.com/embed/pGrbpVAT1tI",
             client: "AE",
             role: "Cinematic Editor",
             description: "A cinematic wedding film capturing the emotion and story of the couple's special day."
@@ -647,7 +765,7 @@ document.addEventListener('DOMContentLoaded', function() {
             title: "Asmak Seafood Commercial",
             categories: ["commercial"],
             img: "https://i.postimg.cc/ZqgSGJf7/Asmak-Seafood-Commercial.png",
-            videoUrl: "https://www.youtube.com/embed/PnpKKkZTkxc?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&mute=1&playlist=PnpKKkZTkxc",
+            videoUrl: "https://www.youtube.com/embed/PnpKKkZTkxc",
             client: "AE",
             role: "Editor, Director",
             description: "A commercial video for Asmak Seafood restaurant, showcasing the venue, food, and high-quality atmosphere."
@@ -657,7 +775,7 @@ document.addEventListener('DOMContentLoaded', function() {
             title: "NE Old Logo Animation",
             categories: ["animation"],
             img: "https://i.postimg.cc/PqYvN7Yv/NE-Old-Logo-Animation.png",
-            videoUrl: "https://www.youtube.com/embed/jS1jKWk29PI?controls=0&showinfo=0&rel=0&autoplay=1&loop=1&mute=1&playlist=jS1jKWk29PI",
+            videoUrl: "https://www.youtube.com/embed/jS1jKWk29PI",
             client: "Personal",
             role: "Motion Graphics Designer",
             description: "A slick and modern logo animation created for a personal branding project."
@@ -665,8 +783,8 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: 10,
             title: "Abu Dhabi Class Compilation Reel",
-            categories: ["reels", "trailer"],
-            img: "https://placehold.co/600x400/000000/FFFFFF?text=Abu+Dhabi%0AClass%0AReel",
+            categories: ["reels"],
+            img: "https://placehold.co/600x400/0a0a0a/ffffff?text=Abu+Dhabi%0AClass%0AReel",
             videoUrl: "https://drive.google.com/file/d/1gGt9-PKhrFptZ8y0dIU9hZ5juXa8JKMb/preview",
             client: "Social Studio",
             role: "Video Editor",
@@ -676,7 +794,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 11,
             title: "The G.O.A.T Final Teaser",
             categories: ["reels", "vfx"],
-            img: "https://placehold.co/600x400/000000/FFFFFF?text=The+G.O.A.T%0AFinal+Teaser",
+            img: "https://placehold.co/600x400/0a0a0a/ffffff?text=The+G.O.A.T%0AFinal+Teaser",
             videoUrl: "https://drive.google.com/file/d/1m7ewl8sZtM6OY9ntkApkPa7SGdBIEP3v/preview",
             client: "Super",
             role: "VFX Artist, Editor",
@@ -686,7 +804,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 12,
             title: "Reif Restaurant",
             categories: ["reels", "commercial"],
-            img: "https://placehold.co/600x400/000000/FFFFFF?text=Reif+Restaurant",
+            img: "https://placehold.co/600x400/0a0a0a/ffffff?text=Reif+Restaurant",
             videoUrl: "https://drive.google.com/file/d/1D7wnVnl-GT5CnRTlOkf39MqPv7C1E7yw/preview",
             client: "Social Studio",
             role: "Editor, Colorist",
@@ -696,7 +814,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 13,
             title: "Sol Marketing Tips Edit",
             categories: ["reels", "vfx"],
-            img: "https://placehold.co/600x400/000000/FFFFFF?text=Sol+Marketing%0ATips+Edit",
+            img: "https://placehold.co/600x400/0a0a0a/ffffff?text=Sol+Marketing%0ATips+Edit",
             videoUrl: "https://drive.google.com/file/d/109FCBhVn8LCVzcfc7DplqrmEXC0eYeYc/preview",
             client: "Sol Marketing",
             role: "Editor, Motion Graphics",
@@ -706,7 +824,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 14,
             title: "Osier Product Reel",
             categories: ["reels", "commercial"],
-            img: "https://placehold.co/600x400/000000/FFFFFF?text=Osier+Product+Reel",
+            img: "https://placehold.co/600x400/0a0a0a/ffffff?text=Osier+Product+Reel",
             videoUrl: "https://drive.google.com/file/d/15BAJM6C3gX6cIUDoe9C3vzqUEUNH0iyA/preview",
             client: "Social Studio",
             role: "Video Editor",
@@ -716,7 +834,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 15,
             title: "Landing Page Video",
             categories: ["reels", "animation"],
-            img: "https://placehold.co/600x400/000000/FFFFFF?text=Landing+Page+Video",
+            img: "https://placehold.co/600x400/0a0a0a/ffffff?text=Landing+Page+Video",
             videoUrl: "https://drive.google.com/file/d/1MoeI4UTrZskpZcwJ70mo_7esAUbsEfWj/preview",
             client: "Sol Marketing",
             role: "Animator, Editor",
@@ -726,7 +844,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 16,
             title: "Koshary ADS Reel",
             categories: ["reels", "commercial"],
-            img: "https://placehold.co/600x400/000000/FFFFFF?text=Koshary+ADS+Reel",
+            img: "https://placehold.co/600x400/0a0a0a/ffffff?text=Koshary+ADS+Reel",
             videoUrl: "https://drive.google.com/file/d/1qYJZi6AqfJ7O92ahqbcM-9uulZ9blcbI/preview",
             client: "AE Media Hub",
             role: "Editor",
@@ -736,7 +854,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 17,
             title: "Marketing Tips Animation Video",
             categories: ["reels", "animation"],
-            img: "https://placehold.co/600x400/000000/FFFFFF?text=Marketing+Tips%0AAnimation",
+            img: "https://placehold.co/600x400/0a0a0a/ffffff?text=Marketing+Tips%0AAnimation",
             videoUrl: "https://drive.google.com/file/d/1yKlM1uvkSNKk8047o2gg3pk8oIazCz0K/preview",
             client: "Sol Marketing",
             role: "Animator",
@@ -746,7 +864,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 18,
             title: "Drill Rap Song Visuals",
             categories: ["music", "ai"],
-            img: "https://placehold.co/600x400/000000/FFFFFF?text=Drill+Rap+Visuals",
+            img: "https://placehold.co/600x400/0a0a0a/ffffff?text=Drill+Rap+Visuals",
             videoUrl: "https://www.youtube.com/embed/BJmfebC2Mx4",
             client: "Super",
             role: "AI Artist, Visualizer",
@@ -756,7 +874,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 19,
             title: "Ouoda Short Promo",
             categories: ["reels", "commercial"],
-            img: "https://placehold.co/600x400/000000/FFFFFF?text=Ouoda+Short+Promo",
+            img: "https://placehold.co/600x400/0a0a0a/ffffff?text=Ouoda+Short+Promo",
             videoUrl: "https://www.youtube.com/embed/PNQcQF-igWM",
             client: "Ouoda",
             role: "Editor",
@@ -766,7 +884,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 20,
             title: "3D Lyrics Video",
             categories: ["music", "animation"],
-            img: "https://placehold.co/600x400/000000/FFFFFF?text=3D+Lyrics+Video",
+            img: "https://placehold.co/600x400/0a0a0a/ffffff?text=3D+Lyrics+Video",
             videoUrl: "https://www.youtube.com/embed/bNfLyDr50nI",
             client: "Super",
             role: "3D Animator, Motion Graphics",
@@ -776,7 +894,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 21,
             title: "Quince Food Reel",
             categories: ["reels", "commercial"],
-            img: "https://placehold.co/600x400/000000/FFFFFF?text=Quince+Food+Reel",
+            img: "https://placehold.co/600x400/0a0a0a/ffffff?text=Quince+Food+Reel",
             videoUrl: "https://drive.google.com/file/d/1WnASC3XKmn1eIe8wLfGLEH3o45okTSGE/preview",
             client: "Social Studio",
             role: "Editor",
@@ -785,8 +903,8 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: 22,
             title: "Bla Bla Competition Reel",
-            categories: ["reels", "trailer"],
-            img: "https://placehold.co/600x400/000000/FFFFFF?text=Bla+Bla%0ACompetition+Reel",
+            categories: ["reels"],
+            img: "https://placehold.co/600x400/0a0a0a/ffffff?text=Bla+Bla%0ACompetition+Reel",
             videoUrl: "https://drive.google.com/file/d/1hHZkD8HQw9D9bpMW8V2jnIE5KVTRj0nX/preview",
             client: "Social Studio",
             role: "Editor",
@@ -795,8 +913,8 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: 23,
             title: "Monkeybar Event Reel",
-            categories: ["reels", "trailer"],
-            img: "https://placehold.co/600x400/000000/FFFFFF?text=Monkeybar+Event+Reel",
+            categories: ["reels"],
+            img: "https://placehold.co/600x400/0a0a0a/ffffff?text=Monkeybar+Event+Reel",
             videoUrl: "https://drive.google.com/file/d/1GJrWTyfZdxgci2QvduqM4J3ue5UU4TG-/preview",
             client: "Social Studio",
             role: "Editor",
@@ -806,7 +924,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 24,
             title: "Love Story Wedding",
             categories: ["wedding"],
-            img: "https://placehold.co/600x400/000000/FFFFFF?text=Love+Story+Wedding",
+            img: "https://placehold.co/600x400/0a0a0a/ffffff?text=Love+Story+Wedding",
             videoUrl: "https://player.vimeo.com/video/791759868",
             client: "AE Media Hub",
             role: "Cinematic Editor, Storyteller",
@@ -816,7 +934,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 25,
             title: "Gaming Montage 1",
             categories: ["gaming"],
-            img: "https://placehold.co/600x400/000000/FFFFFF?text=Gaming+Montage+1",
+            img: "https://placehold.co/600x400/0a0a0a/ffffff?text=Gaming+Montage+1",
             videoUrl: "https://www.youtube.com/embed/FKVF7MhZKJk",
             client: "[EG] Super",
             role: "Video Editor",
@@ -826,7 +944,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 26,
             title: "Gaming Montage 2",
             categories: ["gaming"],
-            img: "https://placehold.co/600x400/000000/FFFFFF?text=Gaming+Montage+2",
+            img: "https://placehold.co/600x400/0a0a0a/ffffff?text=Gaming+Montage+2",
             videoUrl: "https://www.youtube.com/embed/6cEIfVa65y0",
             client: "[EG] Super",
             role: "Video Editor",
@@ -836,7 +954,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 27,
             title: "Gaming Montage 3",
             categories: ["gaming"],
-            img: "https://placehold.co/600x400/000000/FFFFFF?text=Gaming+Montage+3",
+            img: "https://placehold.co/600x400/0a0a0a/ffffff?text=Gaming+Montage+3",
             videoUrl: "https://www.youtube.com/embed/6Ck7RFD9aM8",
             client: "[EG] Super",
             role: "Video Editor",
@@ -846,7 +964,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 28,
             title: "Gaming Montage 4",
             categories: ["gaming"],
-            img: "https://placehold.co/600x400/000000/FFFFFF?text=Gaming+Montage+4",
+            img: "https://placehold.co/600x400/0a0a0a/ffffff?text=Gaming+Montage+4",
             videoUrl: "https://www.youtube.com/embed/XdQ1Z08-IZM",
             client: "[EG] Super",
             role: "Video Editor",
@@ -855,8 +973,8 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: 29,
             title: "Ducking Friday Event Reel",
-            categories: ["reels", "trailer"],
-            img: "https://placehold.co/600x400/000000/FFFFFF?text=Ducking+Friday",
+            categories: ["reels"],
+            img: "https://placehold.co/600x400/0a0a0a/ffffff?text=Ducking+Friday",
             videoUrl: "https://drive.google.com/file/d/1FSUDe8RiMzHybiXC8U-EkPel3l2IosWT/preview",
             client: "Social Studio",
             role: "Editor",
@@ -866,7 +984,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 30,
             title: "Realistic AI Generated Video",
             categories: ["ai"],
-            img: "https://placehold.co/600x400/000000/FFFFFF?text=Realistic+AI+Video",
+            img: "https://placehold.co/600x400/0a0a0a/ffffff?text=Realistic+AI+Video",
             videoUrl: "https://drive.google.com/file/d/11MlAiFdM98jFbrgjwcLicyx5ABCuEMpZ/preview",
             client: "Personal",
             role: "AI Artist",
@@ -876,7 +994,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 31,
             title: "Trapped in the Prompt",
             categories: ["ai"],
-            img: "https://placehold.co/600x400/000000/FFFFFF?text=Trapped+in+the+Prompt",
+            img: "https://placehold.co/600x400/0a0a0a/ffffff?text=Trapped+in+the+Prompt",
             videoUrl: "https://drive.google.com/file/d/1ENd5PyRngemNzLcy9mSHuP_fFKlHUp98/preview",
             client: "Personal",
             role: "AI Artist",
@@ -886,7 +1004,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 32,
             title: "Light & Fit Reel",
             categories: ["reels", "commercial"],
-            img: "https://placehold.co/600x400/000000/FFFFFF?text=Light+%26+Fit+Reel",
+            img: "https://placehold.co/600x400/0a0a0a/ffffff?text=Light+%26+Fit+Reel",
             videoUrl: "https://drive.google.com/file/d/1KipIQA0EfZBzVC1N2s4agHF4GcG-_IG2/preview",
             client: "Sol Marketing",
             role: "Editor",
@@ -896,7 +1014,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 33,
             title: "AI Generated Fans",
             categories: ["ai"],
-            img: "https://placehold.co/600x400/000000/FFFFFF?text=AI+Generated+Fans",
+            img: "https://placehold.co/600x400/0a0a0a/ffffff?text=AI+Generated+Fans",
             videoUrl: "https://drive.google.com/file/d/1_reEOjhUU8g2vbh0sYGnu03fPI6vxClA/preview",
             client: "Super",
             role: "AI Artist",
@@ -906,7 +1024,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 34,
             title: "Tools Guide Video",
             categories: ["reels", "vfx"],
-            img: "https://placehold.co/600x400/000000/FFFFFF?text=Tools+Guide+Video",
+            img: "https://placehold.co/600x400/0a0a0a/ffffff?text=Tools+Guide+Video",
             videoUrl: "https://drive.google.com/file/d/1MK4aUN6q7XM5Y2wjW6NBOxZxB4YTH5vZ/preview",
             client: "Sol Marketing",
             role: "VFX Artist, Editor",
@@ -916,7 +1034,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 35,
             title: "A1 Studio Cypher",
             categories: ["music"],
-            img: "https://placehold.co/600x400/000000/FFFFFF?text=A1+Studio+Cypher",
+            img: "https://placehold.co/600x400/0a0a0a/ffffff?text=A1+Studio+Cypher",
             videoUrl: "https://drive.google.com/file/d/1IDXuLzt51cmw9ECmm2vOxG7zVIWjjX4t/preview",
             client: "A1 Studio",
             role: "Editor",
@@ -926,7 +1044,7 @@ document.addEventListener('DOMContentLoaded', function() {
             id: 36,
             title: "Website Background Video",
             categories: ["ai"],
-            img: "https://placehold.co/600x400/000000/FFFFFF?text=Website+Background",
+            img: "https://placehold.co/600x400/0a0a0a/ffffff?text=Website+Background",
             videoUrl: "https://www.youtube.com/embed/qfLBi05SV2k",
             client: "Personal",
             role: "AI Artist, Editor",
@@ -934,47 +1052,41 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     ];
 
-    // --- DOM ELEMENTS ---
-    // Getting references to all the HTML elements we need to interact with.
     const projectGrid = document.getElementById('project-grid');
     const filterContainer = document.getElementById('filter-container');
     const modal = document.getElementById('project-modal');
     const modalContent = document.getElementById('modal-content');
     const closeModalBtn = document.getElementById('close-modal-btn');
     const mainContentWrapper = document.getElementById('main-content-wrapper');
-    const aboutProfileImage = document.getElementById('about-profile-image');
+    const aboutImages = document.querySelectorAll('.clickable-about-image');
     const modalDetailsContainer = document.getElementById('modal-details-container');
     const mobileMenuBtn = document.getElementById('mobile-menu-btn');
     const mobileMenu = document.getElementById('mobile-menu');
     const navLinks = document.querySelectorAll('.nav-link, #mobile-menu a');
     const sections = document.querySelectorAll('main section[id]');
+    const contactForm = document.getElementById('contact-form');
+    const successMessage = document.getElementById('form-success-message');
 
-    // --- FUNCTIONS ---
-
-    /**
-     * Renders projects in the grid based on the selected filter.
-     * @param {string} filter - The category to filter by (e.g., 'top', 'commercial').
-     */
-    function displayProjects(filter = 'top') {
-        projectGrid.innerHTML = ''; // Clear the grid first
+    function displayProjects(filter = 'Top 3') {
+        projectGrid.innerHTML = ''; 
         const filteredProjects = projects.filter(p => p.categories.includes(filter));
 
         filteredProjects.forEach((project, index) => {
             const projectCard = document.createElement('div');
-            projectCard.className = 'project-card cursor-pointer fade-in'; // Add classes for styling and animation
+            projectCard.className = 'project-card cursor-pointer fade-in';
             projectCard.dataset.id = project.id;
-            projectCard.style.animationDelay = `${index * 0.15}s`;
+            projectCard.style.animationDelay = `${index * 0.1}s`;
             
             projectCard.innerHTML = `
-                <div class="relative">
-                    <img src="${project.img}" alt="${project.title}" class="w-full h-32 sm:h-48 object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0a0a0a/ffffff?text=Image+Not+Found';">
+                <div class="relative aspect-video">
+                    <img src="${project.img}" alt="${project.title}" class="w-full h-full object-cover" onerror="this.onerror=null;this.src='https://placehold.co/600x400/0a0a0a/ffffff?text=Image+Not+Found';">
                     <div class="absolute inset-0 bg-black/30 opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
-                        <span class="text-white font-bold text-lg">View Project</span>
+                        <span class="text-white font-bold text-lg text-center p-2">View Project</span>
                     </div>
                 </div>
                 <div class="p-4">
-                    <h3 class="font-bold text-base sm:text-lg text-neutral-50">${project.title}</h3>
-                    <p class="text-sm text-neutral-400">${project.categories.map(cat => cat.charAt(0).toUpperCase() + cat.slice(1)).join(', ')}</p>
+                    <h3 class="font-bold text-base sm:text-lg text-neutral-50 truncate">${project.title}</h3>
+                    <p class="text-sm text-neutral-400 truncate">${project.categories.map(cat => cat.charAt(0).toUpperCase() + cat.slice(1)).join(', ')}</p>
                     <div class="project-summary mt-2">
                         <p>${project.description.substring(0, 100)}...</p>
                     </div>
@@ -983,38 +1095,41 @@ document.addEventListener('DOMContentLoaded', function() {
             projectGrid.appendChild(projectCard);
         });
     }
-
-    /**
-     * Opens the modal to show project details or the about image.
-     * @param {number|null} projectId - The ID of the project to show.
-     * @param {boolean} isImage - True if we are showing the about image instead of a project.
-     */
-    function openModal(projectId, isImage = false) {
+    
+    function openModal(projectId, isImage = false, imageSrc = null) {
         const modalVideoContainer = document.getElementById('modal-video-container');
-        modalVideoContainer.innerHTML = ''; // Clear previous content
+        modalVideoContainer.innerHTML = '';
 
-        if (isImage) {
-            // If it's the 'About Me' image
+        if (isImage && imageSrc) {
             document.getElementById('modal-title').textContent = "Noor Elhossany";
             const imgElement = document.createElement('img');
-            imgElement.src = aboutProfileImage.src;
-            imgElement.alt = "Noor Elhossany Headshot";
+            imgElement.src = imageSrc;
+            imgElement.alt = "Noor Elhossany";
             modalVideoContainer.appendChild(imgElement);
-            modalDetailsContainer.classList.add('hidden'); // Hide project-specific details
+            modalDetailsContainer.classList.add('hidden');
         } else {
-            // If it's a project
             const project = projects.find(p => p.id == projectId);
             if (!project) return;
 
             document.getElementById('modal-title').textContent = project.title;
+            
+            let videoUrl = project.videoUrl;
+            if (videoUrl.includes("youtube.com/watch?v=")) {
+                 videoUrl = videoUrl.replace("watch?v=", "embed/");
+            }
+             // Handle Google Drive preview links
+            else if (videoUrl.includes("drive.google.com") && videoUrl.includes("/preview")) {
+                // No change needed for preview, but ensure it works in iframe
+            }
+            // Add more conditions if other video hosts are used
+            
             const iframeElement = document.createElement('iframe');
-            iframeElement.src = project.videoUrl;
+            iframeElement.src = videoUrl;
             iframeElement.frameborder = "0";
             iframeElement.allow = "autoplay; encrypted-media; fullscreen";
             iframeElement.allowFullscreen = true;
             modalVideoContainer.appendChild(iframeElement);
 
-            // Populate and show project details
             modalDetailsContainer.classList.remove('hidden');
             document.getElementById('modal-description').textContent = project.description;
             document.getElementById('modal-role').textContent = project.role;
@@ -1022,59 +1137,55 @@ document.addEventListener('DOMContentLoaded', function() {
             document.getElementById('modal-category').textContent = project.categories.map(cat => cat.charAt(0).toUpperCase() + cat.slice(1)).join(', ');
         }
         
-        // Show the modal and apply effects
         modal.classList.remove('opacity-0', 'pointer-events-none');
         modalContent.classList.remove('scale-95');
-        document.body.style.overflow = 'hidden'; // Prevent background scrolling
-        mainContentWrapper.classList.add('blur-active'); // Blur the background
+        document.body.style.overflow = 'hidden';
+        mainContentWrapper.classList.add('blur-active');
     }
 
-    /**
-     * Closes the modal and resets its state.
-     */
+
     function closeModal() {
         modal.classList.add('opacity-0', 'pointer-events-none');
         modalContent.classList.add('scale-95');
-        document.getElementById('modal-video-container').innerHTML = ''; // Stop video by removing iframe
-        document.body.style.overflow = 'auto'; // Restore scrolling
-        mainContentWrapper.classList.remove('blur-active'); // Unblur the background
+        // Stop video playback by removing the iframe src
+        const iframe = document.querySelector('#modal-video-container iframe');
+        if (iframe) {
+            iframe.src = ''; // Setting src to empty effectively stops most videos
+        }
+        document.getElementById('modal-video-container').innerHTML = ''; // Clear container
+        document.body.style.overflow = 'auto';
+        mainContentWrapper.classList.remove('blur-active');
     }
 
-    /**
-     * Updates the active state of navigation links based on scroll position.
-     */
     function changeNavOnScroll() {
         let current = '';
         sections.forEach(section => {
             const sectionTop = section.offsetTop;
-            // 68px offset for the fixed header height
-            if (pageYOffset >= sectionTop - 68) {
+            if (pageYOffset >= sectionTop - 70) { // Adjusted offset slightly
                 current = section.getAttribute('id');
             }
         });
 
         navLinks.forEach(link => {
             link.classList.remove('active');
-            if (link.getAttribute('href').includes(current)) {
+            // Check if the link's href (without #) matches the current section id
+            if (link.getAttribute('href').substring(1) === current) {
                 link.classList.add('active');
             }
         });
     }
 
-    // --- LIQUID BACKGROUND ANIMATION ---
     const canvas = document.getElementById('liquid-background');
     const ctx = canvas.getContext('2d');
     let orbs = [];
 
-    // Orb class for the liquid particles
     class Orb {
         constructor() {
             this.x = Math.random() * window.innerWidth;
             this.y = Math.random() * window.innerHeight;
-            this.vx = (Math.random() - 0.5) * 0.8; // Slightly faster velocity
+            this.vx = (Math.random() - 0.5) * 0.8;
             this.vy = (Math.random() - 0.5) * 0.8;
-            this.radius = Math.random() * 150 + 100; // Large radius
-            // Less saturated color and lower opacity for a subtler effect
+            this.radius = Math.random() * 150 + 100;
             this.color = `rgba(26, 89, 81, ${Math.random() * 0.15 + 0.05})`; 
         }
 
@@ -1089,12 +1200,8 @@ document.addEventListener('DOMContentLoaded', function() {
             this.x += this.vx;
             this.y += this.vy;
 
-            if (this.x - this.radius < 0 || this.x + this.radius > window.innerWidth) {
-                this.vx *= -1;
-            }
-            if (this.y - this.radius < 0 || this.y + this.radius > window.innerHeight) {
-                this.vy *= -1;
-            }
+            if (this.x - this.radius < 0 || this.x + this.radius > window.innerWidth) this.vx *= -1;
+            if (this.y - this.radius < 0 || this.y + this.radius > window.innerHeight) this.vy *= -1;
         }
     }
 
@@ -1102,71 +1209,56 @@ document.addEventListener('DOMContentLoaded', function() {
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
         orbs = [];
-        for (let i = 0; i < 5; i++) { // Create 5 orbs
+        for (let i = 0; i < 5; i++) {
             orbs.push(new Orb());
         }
     }
 
     function animateLiquid() {
         ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.filter = 'blur(80px)'; // Apply a strong blur to merge the orbs visually
-        
+        ctx.filter = 'blur(80px)';
         orbs.forEach(orb => {
             orb.update();
             orb.draw();
         });
-
         ctx.filter = 'none';
         requestAnimationFrame(animateLiquid);
     }
     
     window.addEventListener('resize', initLiquid);
 
-    // --- GLITCH/HACKER EFFECT ON HEADLINE ---
     const headline = document.querySelector('#home h1');
     const originalText = "Noor Elhossany";
-    headline.dataset.text = originalText; // Set for CSS glitch
+    headline.dataset.text = originalText;
     const chars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ123456789<>[]{}*#";
     let hackerInterval = null;
 
     function startHackerEffect() {
         let iteration = 0;
-        
         clearInterval(hackerInterval);
-        headline.classList.add('is-glitching'); // Add class to start CSS glitch
+        headline.classList.add('is-glitching');
         
         hackerInterval = setInterval(() => {
             headline.innerText = originalText
                 .split("")
                 .map((letter, index) => {
-                    if(index < iteration) {
-                        return originalText[index];
-                    }
-                    if(originalText[index] === ' ') {
-                        return ' ';
-                    }
+                    if(index < iteration) return originalText[index];
+                    if(originalText[index] === ' ') return ' ';
                     return chars[Math.floor(Math.random() * chars.length)];
                 })
                 .join("");
 
             if(iteration >= originalText.length){
                 clearInterval(hackerInterval);
-                headline.classList.remove('is-glitching'); // Stop CSS glitch when done
+                headline.classList.remove('is-glitching');
             }
-            
-            iteration += 1; // Faster iteration
-        }, 30); // Faster interval
+            iteration += 1 / 3; // Control speed
+        }, 30); // Control update frequency
     }
+    // Only run hacker effect after initial load animation
+    // setInterval(startHackerEffect, 8000); 
+    // setTimeout(startHackerEffect, 2000); // Removed initial immediate run
 
-    // Trigger the effect periodically
-    setInterval(startHackerEffect, 8000); // Run every 8 seconds
-
-    // Run once on load after initial animation
-    setTimeout(startHackerEffect, 2000);
-
-    // --- EVENT LISTENERS ---
-
-    // Handles clicks on the filter buttons
     filterContainer.addEventListener('click', (e) => {
         if (e.target.tagName === 'BUTTON') {
             document.querySelector('.filter-btn.active').classList.remove('active');
@@ -1175,67 +1267,95 @@ document.addEventListener('DOMContentLoaded', function() {
         }
     });
     
-    // Handles clicks on project cards to open the modal
     projectGrid.addEventListener('click', (e) => {
         const card = e.target.closest('.project-card');
-        if (card) {
-            openModal(card.dataset.id);
-        }
+        if (card) openModal(card.dataset.id);
     });
 
-    // Handles click on the 'About Me' profile image
-    aboutProfileImage.addEventListener('click', () => {
-        openModal(null, true);
+    aboutImages.forEach(img => {
+        img.addEventListener('click', function() {
+            openModal(null, true, this.src);
+        });
     });
 
-    // Listeners for closing the modal
     closeModalBtn.addEventListener('click', closeModal);
     modal.addEventListener('click', (e) => {
-        if (e.target === modal) { // Close if clicking on the background overlay
-            closeModal();
-        }
+        if (e.target === modal) closeModal();
     });
 
-    // Toggles the mobile navigation menu
     mobileMenuBtn.addEventListener('click', () => {
         mobileMenu.classList.toggle('hidden');
     });
-    // Hides mobile menu when a link is clicked
-    mobileMenu.addEventListener('click', () => {
-        mobileMenu.classList.add('hidden');
+
+    document.querySelectorAll('#mobile-menu a').forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.add('hidden');
+        });
     });
 
-    // Updates nav links on scroll
     window.addEventListener('scroll', changeNavOnScroll);
 
-    // --- Intersection Observer for Scroll Animations ---
-    // This makes elements fade in as you scroll down the page.
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
                 entry.target.classList.add('visible');
-                // Apply staggered delay to child elements for a nice effect
                 entry.target.querySelectorAll('.stagger-item').forEach((child, index) => {
-                    child.style.transitionDelay = `${index * 0.2}s`; // Increased delay
+                    child.style.transitionDelay = `${index * 0.15}s`;
                 });
-            } else {
-                entry.target.classList.remove('visible'); // Reset animation
             }
+            // Removed the 'else' part to prevent re-animation on scroll up
+            // else {
+            //    entry.target.classList.remove('visible'); 
+            // }
         });
-    }, { threshold: 0.1 }); // Trigger when 10% of the element is visible
+    }, { threshold: 0.1 }); // Trigger when 10% is visible
 
     document.querySelectorAll('.animate-on-scroll').forEach(section => {
         observer.observe(section);
     });
 
+    contactForm.addEventListener('submit', function(e) {
+        e.preventDefault();
+        const formData = new FormData(contactForm);
+        fetch(contactForm.action, {
+            method: 'POST',
+            body: formData,
+            headers: {'Accept': 'application/json'}
+        }).then(response => {
+             if (response.ok) {
+                contactForm.style.opacity = '0';
+                contactForm.style.pointerEvents = 'none'; // Prevent interaction while hidden
+                successMessage.style.opacity = '1';
+                successMessage.style.pointerEvents = 'auto';
+
+                // Optional: Reset form after a few seconds
+                 setTimeout(() => {
+                     contactForm.reset();
+                     contactForm.style.opacity = '1';
+                     contactForm.style.pointerEvents = 'auto'; // Re-enable interaction
+                     successMessage.style.opacity = '0';
+                     successMessage.style.pointerEvents = 'none';
+                 }, 5000); // Reset after 5 seconds
+            } else {
+                 // Handle submission error (optional)
+                 console.error('Form submission failed!');
+                 alert('Oops! Something went wrong. Please try again.'); // Simple error feedback
+             }
+        }).catch(error => {
+            console.error('Error!', error.message);
+            alert('Oops! Something went wrong. Please try again.'); // Simple error feedback
+        });
+    });
+
     // --- INITIALIZATION ---
-    // Load the initial set of projects and set the correct active nav link.
-    displayProjects('top');
-    changeNavOnScroll();
-    initLiquid();
-    animateLiquid();
+    displayProjects('Top 3'); // Load initial projects
+    changeNavOnScroll(); // Set initial active nav link
+    initLiquid();       // Setup background canvas
+    animateLiquid();    // Start background animation
 });
 </script>
 
+
 </body>
 </html>
+
