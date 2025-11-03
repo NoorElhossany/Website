@@ -4,8 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Noor Elhossany - Senior Video Editor & Motion Designer</title>
-    <!-- Favicon using SVG for a simple, self-contained icon -->
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%232dd4bf%22>NE</text></svg>">
+    <!-- Favicon using SVG for a simple, self-contained icon --><link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22 fill=%22%232dd4bf%22>NE</text></svg>">
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -15,8 +14,7 @@
         Application Structure Plan: A single-page application (SPA) with tab-like navigation (Home, Portfolio, About, Contact) that smoothly scrolls to content sections. This structure provides a fast, seamless user experience without page reloads. A modal is used for project details to keep the user in the context of the main portfolio grid, which is a best practice for usability in portfolios.
         Visualization & Content Choices: Report Info: Portfolio -> Goal: Organize/Compare -> Viz: Filterable Grid & Modal -> Interaction: Users click category buttons to filter projects instantly (JS). Clicking a project thumbnail opens a modal with details and an embedded video. -> Justification: This is highly intuitive and allows users to quickly find relevant work and dive into details without losing their place. -> Library/Method: Vanilla JS for DOM manipulation, filtering logic, and modal control. Content is dynamically generated from a JS array.
         CONFIRMATION: NO SVG graphics used. NO Mermaid JS used.
-    -->
-    <style>
+    --><style>
         body {
             font-family: 'Inter', sans-serif;
             background-color: #0A0A0A; /* Very dark background */
@@ -98,6 +96,22 @@
             transform: translateY(-1px) scale(1.01); /* Subtle lift and slight scale */
             box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15); /* Lighter hover shadow */
         }
+
+        /* New Showreel Button Glow */
+        @keyframes subtleGlow {
+            0%, 100% { box-shadow: 0 0 15px rgba(45, 212, 191, 0.4), 0 0 5px rgba(45, 212, 191, 0.3); }
+            50% { box-shadow: 0 0 25px rgba(45, 212, 191, 0.7), 0 0 10px rgba(45, 212, 191, 0.5); }
+        }
+        .showreel-button {
+            border-color: #2dd4bf; /* teal-400 */
+            color: #2dd4bf;
+            animation: subtleGlow 3s ease-in-out infinite;
+        }
+        .showreel-button:hover {
+            border-color: #5eead4; /* teal-300 */
+            color: #5eead4;
+        }
+
 
         /* Specific styles for filter buttons */
         .filter-btn.active {
@@ -439,13 +453,10 @@
 </head>
 <body class="bg-neutral-950 text-neutral-200">
 
-    <!-- The new live background canvas -->
-    <canvas id="liquid-background"></canvas>
+    <!-- The new live background canvas --><canvas id="liquid-background"></canvas>
 
-    <!-- Main Content Wrapper for Blur Effect -->
-    <div id="main-content-wrapper">
-        <!-- Header -->
-        <header id="main-header" class="bg-neutral-900/80 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 shadow-lg">
+    <!-- Main Content Wrapper for Blur Effect --><div id="main-content-wrapper">
+        <!-- Header --><header id="main-header" class="bg-neutral-900/80 backdrop-blur-lg fixed top-0 left-0 right-0 z-50 shadow-lg">
             <div class="container mx-auto px-4 sm:px-6 py-4 flex justify-between items-center">
                 <a href="#home" class="text-xl font-bold text-neutral-50">NOOR ELHOSSANY</a>
                 <nav class="hidden md:flex items-center space-x-8">
@@ -460,8 +471,7 @@
                     <div class="w-6 h-0.5 bg-neutral-200"></div>
                 </button>
             </div>
-            <!-- Mobile Menu -->
-            <div id="mobile-menu" class="hidden md:hidden bg-neutral-800">
+            <!-- Mobile Menu --><div id="mobile-menu" class="hidden md:hidden bg-neutral-800">
                 <a href="#home" class="block py-2 px-6 text-center text-neutral-200 hover:bg-neutral-700">Home</a>
                 <a href="#portfolio" class="block py-2 px-6 text-center text-neutral-200 hover:bg-neutral-700">Portfolio</a>
                 <a href="#about" class="block py-2 px-6 text-center text-neutral-200 hover:bg-neutral-700">About</a>
@@ -470,23 +480,21 @@
         </header>
 
         <main>
-            <!-- Home Section -->
-            <section id="home" class="min-h-screen flex items-center justify-center text-center text-white overflow-hidden pt-16">
-                <!-- YouTube video as background -->
-                <div class="video-container">
+            <!-- Home Section --><section id="home" class="min-h-screen flex items-center justify-center text-center text-white overflow-hidden pt-16">
+                <!-- YouTube video as background --><div class="video-container">
                     <iframe src="https://www.youtube.com/embed/qfLBi05SV2k?controls=0&rel=0&autoplay=1&loop=1&mute=1&playlist=qfLBi05SV2k" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
                 </div>
                 <div class="relative z-10 p-4 sm:p-6">
                     <h1 class="text-4xl sm:text-5xl md:text-6xl lg:text-7xl font-extrabold mb-4 leading-tight animate-headline">Noor Elhossany</h1>
                     <p class="text-lg md:text-xl max-w-3xl mx-auto mb-8 font-light foggy-text-appear">The VisioNoory</p>
-                    <div class="space-x-4">
+                    <div class="flex flex-col md:flex-row justify-center items-center">
+                        <button id="watch-showreel-btn" class="glass-button showreel-button font-bold py-3 px-8 rounded-full mb-4 md:mb-0 md:mr-4">Watch Showreel</button>
                         <a href="#portfolio" class="main-cta-button glass-button font-bold py-3 px-8 rounded-full">View Portfolio</a>
                     </div>
                 </div>
             </section>
 
-            <!-- Clients Section -->
-            <section id="clients" class="py-12 md:py-20 lg:py-24 animate-on-scroll">
+            <!-- Clients Section --><section id="clients" class="py-12 md:py-20 lg:py-24 animate-on-scroll">
                 <div class="container mx-auto px-4 sm:px-6">
                     <h3 class="text-center text-sm font-bold tracking-widest text-neutral-400 uppercase mb-10 foggy-text-appear">Trusted by Industry Leaders</h3>
                     <div class="overflow-x-auto pb-4">
@@ -502,15 +510,14 @@
                 </div>
             </section>
 
-            <!-- Portfolio Section -->
-            <section id="portfolio" class="py-20 lg:py-24 animate-on-scroll">
+            <!-- Portfolio Section --><section id="portfolio" class="py-20 lg:py-24 animate-on-scroll">
                 <div class="container mx-auto px-4 sm:px-6">
                     <div class="text-center mb-12">
                         <h2 class="text-3xl sm:text-4xl font-bold mb-4 text-neutral-50 foggy-text-appear">My Work</h2>
                         <p class="text-base md:text-lg text-neutral-300 max-w-2xl mx-auto foggy-text-appear">A selection of projects that showcase my passion for visual storytelling and technical expertise.</p>
                     </div>
                     <div id="filter-container" class="flex flex-wrap justify-center gap-2 mb-12">
-                        <button class="filter-btn glass-button active text-sm sm:text-base py-2 px-4 rounded-full" data-filter="Top 3">Top 3</button>
+                        <button class="filter-btn glass-button active text-sm sm:text-base py-2 px-4 rounded-full" data-filter="Top 5">Top 5</button>
                         <button class="filter-btn glass-button text-sm sm:text-base py-2 px-4 rounded-full" data-filter="commercial">Commercials</button>
                         <button class="filter-btn glass-button text-sm sm:text-base py-2 px-4 rounded-full" data-filter="music">Music</button>
                         <button class="filter-btn glass-button text-sm sm:text-base py-2 px-4 rounded-full" data-filter="wedding">Wedding</button>
@@ -521,23 +528,18 @@
                         <button class="filter-btn glass-button text-sm sm:text-base py-2 px-4 rounded-full" data-filter="ai">AI</button>
                     </div>
                     <div id="project-grid" class="grid grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-8">
-                        <!-- Projects will be dynamically inserted here by JavaScript -->
-                    </div>
+                        <!-- Projects will be dynamically inserted here by JavaScript --></div>
                 </div>
             </section>
 
-            <!-- About Section -->
-             <section id="about" class="py-20 lg:py-24 animate-on-scroll">
+            <!-- About Section --><section id="about" class="py-20 lg:py-24 animate-on-scroll">
                 <div class="container mx-auto px-4 sm:px-6">
-                     <!-- Unified Grid for Mobile and Desktop -->
-                    <div class="grid grid-cols-5 gap-6 md:gap-12 items-start">
-                         <!-- Image Column -->
-                        <div class="col-span-2 flex flex-col gap-4 md:gap-8">
+                     <!-- Unified Grid for Mobile and Desktop --><div class="grid grid-cols-5 gap-6 md:gap-12 items-start">
+                         <!-- Image Column --><div class="col-span-2 flex flex-col gap-4 md:gap-8">
                             <img src="https://lh3.googleusercontent.com/d/12siRpzfd3cA7eSS66txHOztw4i2aCtvz" alt="Noor Elhossany Headshot" class="rounded-lg shadow-xl w-full h-auto object-cover stagger-item about-image clickable-about-image" onerror="this.onerror=null;this.src='https://placehold.co/400x400/0a0a0a/ffffff?text=Profile+Image';">
                             <img src="https://lh3.googleusercontent.com/d/1fSEicmIJn4IMSBL2UziKj7vBmjBE0YsO" alt="Noor Elhossany secondary image" class="rounded-lg shadow-xl w-full h-auto object-cover stagger-item about-image clickable-about-image" onerror="this.onerror=null;this.src='https://placehold.co/400x400/0a0a0a/ffffff?text=Second+Image';">
                         </div>
-                        <!-- Text Column -->
-                        <div class="col-span-3">
+                        <!-- Text Column --><div class="col-span-3">
                             <h2 class="text-xl md:text-3xl lg:text-4xl font-bold mb-2 md:mb-6 text-neutral-50 foggy-text-appear">My Creative Journey</h2>
                             <p id="about-me-text" class="text-xs md:text-lg text-neutral-300 mb-6 md:mb-8 foggy-text-appear">
                                With over seven years as a professional video editor and five years as a motion graphic designer, I've had the privilege of bringing over 400 projects to life. My career has been focused on transforming raw footage into cinematic narratives and dynamic visuals that capture attention and tell compelling stories.
@@ -566,26 +568,22 @@
                 </div>
             </section>
 
-            <!-- Services Section -->
-            <section id="services" class="py-20 lg:py-24 animate-on-scroll">
+            <!-- Services Section --><section id="services" class="py-20 lg:py-24 animate-on-scroll">
                 <div class="container mx-auto px-4 sm:px-6">
                     <div class="text-center mb-12">
                         <h2 class="text-3xl sm:text-4xl font-bold mb-4 text-neutral-50 foggy-text-appear">Services I Offer</h2>
                         <p class="text-base md:text-lg text-neutral-300 max-w-2xl mx-auto foggy-text-appear">Tailored solutions to bring your vision to life.</p>
                     </div>
                     <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-                        <!-- Service Card 1 -->
-                        <div class="service-card stagger-item">
+                        <!-- Service Card 1 --><div class="service-card stagger-item">
                             <h3 class="text-xl font-bold mb-3 text-teal-400">Full Post-Production</h3>
                             <p class="text-neutral-300">Complete video editing, color grading, sound mixing, and final delivery for commercials, films, and corporate videos.</p>
                         </div>
-                        <!-- Service Card 2 -->
-                        <div class="service-card stagger-item">
+                        <!-- Service Card 2 --><div class="service-card stagger-item">
                             <h3 class="text-xl font-bold mb-3 text-teal-400">Motion Graphics & VFX</h3>
                             <p class="text-neutral-300">Dynamic 2D/3D animations, logo reveals, and stunning visual effects to elevate your project's visual appeal.</p>
                         </div>
-                        <!-- Service Card 3 -->
-                        <div class="service-card stagger-item">
+                        <!-- Service Card 3 --><div class="service-card stagger-item">
                             <h3 class="text-xl font-bold mb-3 text-teal-400">AI-Powered Content</h3>
                             <p class="text-neutral-300">Leveraging cutting-edge AI tools for unique visual styles, realistic scene generation, and creative video concepts.</p>
                         </div>
@@ -593,8 +591,7 @@
                 </div>
             </section>
 
-            <!-- Contact Section -->
-            <section id="contact" class="py-20 lg:py-24 animate-on-scroll">
+            <!-- Contact Section --><section id="contact" class="py-20 lg:py-24 animate-on-scroll">
                 <div class="container mx-auto px-4 sm:px-6">
                     <div class="text-center mb-12">
                         <h2 class="text-3xl sm:text-4xl font-bold mb-4 text-neutral-50 foggy-text-appear">Let's Create Together</h2>
@@ -620,8 +617,7 @@
                 </div>
             </section>
         </main>
-        <!-- Footer -->
-        <footer class="bg-neutral-900 text-neutral-300 py-12">
+        <!-- Footer --><footer class="bg-neutral-900 text-neutral-300 py-12">
             <div class="container mx-auto px-6 text-center">
                 <div class="flex justify-center items-center gap-6 mb-8">
                      <a href="#" class="glass-button font-bold py-3 px-8 rounded-full">Download CV</a>
@@ -636,8 +632,7 @@
         </footer>
     </div>
 
-    <!-- Project Modal -->
-    <div id="project-modal" class="fixed inset-0 bg-black/80 z-[100] flex items-center justify-center p-4 opacity-0 pointer-events-none">
+    <!-- Project Modal --><div id="project-modal" class="fixed inset-0 bg-black/80 z-[100] flex items-center justify-center p-4 opacity-0 pointer-events-none">
         <div id="modal-content" class="bg-neutral-800 rounded-lg max-w-4xl w-full max-h-[90vh] overflow-y-auto transform scale-95 transition-transform duration-300 text-neutral-200">
             <div class="p-6 md:p-8">
                 <div class="flex justify-between items-start mb-4">
@@ -645,8 +640,7 @@
                     <button id="close-modal-btn" class="text-3xl text-neutral-400 hover:text-neutral-50 transition-colors">&times;</button>
                 </div>
                 <div class="mb-6" id="modal-video-container">
-                    <!-- Content will be dynamically loaded here (iframe for video, img for picture) -->
-                </div>
+                    <!-- Content will be dynamically loaded here (iframe for video, img for picture) --></div>
                 <div id="modal-details-container">
                     <div class="grid md:grid-cols-3 gap-6">
                         <div class="md:col-span-2">
@@ -671,9 +665,19 @@
 document.addEventListener('DOMContentLoaded', function() {
     const projects = [
         {
+            id: 39,
+            title: "Main Showreel 2024",
+            categories: ["Top 5", "commercial", "music", "wedding", "animation", "vfx", "ai"],
+            img: "https://i.ytimg.com/vi/wEO8kHqZUB0/maxresdefault.jpg",
+            videoUrl: "https://www.youtube.com/embed/wEO8kHqZUB0",
+            client: "Personal",
+            role: "Video Editor, Motion Designer, VFX Artist",
+            description: "A comprehensive showcase of video editing, motion graphics, and VFX skills across diverse projects including commercials, music videos, and cinematic animations."
+        },
+        {
             id: 1,
             title: "Social Studio - Fitness Showreel 2025",
-            categories: ["Top 3", "reels", "commercial"],
+            categories: ["Top 5", "reels", "commercial"],
             img: "https://i.postimg.cc/qvFxvtC0/Social-Studio-Fitness-Showreel-2025.png",
             videoUrl: "https://drive.google.com/file/d/1Oge0BrnAr3juDGL3geZ8GfEt4m-w50s9/preview",
             client: "Social Studio",
@@ -683,7 +687,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: 37,
             title: "Post-Apocalyptic City",
-            categories: ["Top 3", "vfx", "animation"],
+            categories: ["Top 5", "vfx", "animation"],
             img: "https://i.ytimg.com/vi/D-hM56NsStU/maxresdefault.jpg",
             videoUrl: "https://www.youtube.com/embed/D-hM56NsStU",
             client: "Personal",
@@ -693,7 +697,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: 5,
             title: "The G.O.A.T Music Video",
-            categories: ["Top 3", "music", "vfx"],
+            categories: ["Top 5", "music", "vfx"],
             img: "https://i.postimg.cc/50CV1DTx/The-G-O-A-T-Music-Video.png",
             videoUrl: "https://www.youtube.com/embed/GJf0HuRtxPQ",
             client: "Super",
@@ -803,7 +807,7 @@ document.addEventListener('DOMContentLoaded', function() {
         {
             id: 12,
             title: "Reif Restaurant",
-            categories: ["reels", "commercial"],
+            categories: ["Top 5", "reels", "commercial"],
             img: "https://placehold.co/600x400/0a0a0a/ffffff?text=Reif+Restaurant",
             videoUrl: "https://drive.google.com/file/d/1D7wnVnl-GT5CnRTlOkf39MqPv7C1E7yw/preview",
             client: "Social Studio",
@@ -1066,8 +1070,9 @@ document.addEventListener('DOMContentLoaded', function() {
     const sections = document.querySelectorAll('main section[id]');
     const contactForm = document.getElementById('contact-form');
     const successMessage = document.getElementById('form-success-message');
+    const showreelBtn = document.getElementById('watch-showreel-btn'); // New element
 
-    function displayProjects(filter = 'Top 3') {
+    function displayProjects(filter = 'Top 5') {
         projectGrid.innerHTML = ''; 
         const filteredProjects = projects.filter(p => p.categories.includes(filter));
 
@@ -1278,6 +1283,12 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // New listener for the showreel button
+    showreelBtn.addEventListener('click', () => {
+        openModal(39); // ID of the new showreel
+    });
+
+
     closeModalBtn.addEventListener('click', closeModal);
     modal.addEventListener('click', (e) => {
         if (e.target === modal) closeModal();
@@ -1348,7 +1359,7 @@ document.addEventListener('DOMContentLoaded', function() {
     });
 
     // --- INITIALIZATION ---
-    displayProjects('Top 3'); // Load initial projects
+    displayProjects('Top 5'); // Load initial projects
     changeNavOnScroll(); // Set initial active nav link
     initLiquid();       // Setup background canvas
     animateLiquid();    // Start background animation
@@ -1358,4 +1369,5 @@ document.addEventListener('DOMContentLoaded', function() {
 
 </body>
 </html>
+
 
